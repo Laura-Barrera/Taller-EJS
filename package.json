@@ -1,0 +1,28 @@
+{
+  "name": "taller-1-barreralaura-suanchacristian",
+  "version": "1.0.0",
+  "description": "Desarrollo del un sistema de información usando EJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Laura-Barrera/Taller-EJS.git"
+  },
+  "author": "Laura Melissa Barrera y Cristian Camilo Suancha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Laura-Barrera/Taller-EJS/issues"
+  },
+  "homepage": "https://github.com/Laura-Barrera/Taller-EJS#readme",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}

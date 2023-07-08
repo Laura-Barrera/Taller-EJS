@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%-include('../templates/header.ejs')%>
+    </head>
+    <body style="background-color: rgba(76, 199, 230, 0.6);">
+
+        <nav class="navbar navbar-light" style="background-color: white;">
+            <%-include('../templates/navMain.ejs')%>
+        </nav><br>
+        
+        <main><br>
+            <div class="container" style="background-color: white;">
+                <nav class="navbar navbar-light" style="background-color: rgba(217, 217, 217, 0.7);">
+                    <%-include('../templates/navAdm.ejs', { currentPage: currentPage })%>
+                </nav><br>
+                <h3 style="text-align: center;">Información Personal Médico</h3>
+                <div class="row">
+                    <div class="table-responsive">
+                        <div class="row" style="text-align: right;">
+                            <div class="col-6"></div>
+                            <div class="col-6" style="text-align: right;">
+                                <label>Filtrar Datos</label>&nbsp;
+                                <input type="text" id="searchInput" placeholder="Buscar..." style="border-radius: 5px;">
+                            </div>
+                        </div><br>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>N° Documento</th>
+                                    <th>N° Tarjeta Profesional</th>
+                                    <th>Nombre</th>
+                                    <th>Especialidad</th>
+                                    <th>Editar datos</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-4"></div>
+                    <div class="col-2" style="text-align: right;">
+                        <button class="btn btn primary" style="background-color: #4C75E6; color: white;"  data-toggle="modal" data-target="#modalAdd">Agregar Médico</button>
+                    </div>
+                    <div class="col-2" style="text-align: right;">
+                        <button class="btn btn primary" style="background-color: #4C75E6; color: white;"  data-toggle="modal" data-target="#modalDelete">Eliminar Médico</button>
+                    </div>
+                </div><br>
+            </div>
+            <!-- Modal Agregar Médico -->
+            <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAddLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <!-- Contenido del modal Agregar Médico -->
+                    </div>
+                </div>
+            </div>
+  
+            <!-- Modal Eliminar Médico -->
+            <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <!-- Contenido del modal Eliminar Médico -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scripts para activar los modales -->
+            <script>
+                $(document).ready(function() {
+                    $('#modalAdd').on('shown.bs.modal', function() {
+                        // Acciones cuando se muestra el modal Agregar Médico
+                    });
+  
+                    $('#modalDelete').on('shown.bs.modal', function() {
+                        // Acciones cuando se muestra el modal Eliminar Médico
+                    });
+                });
+            </script>
+        </main>
+        <footer class="footer" style="position: relative; bottom:0; left: 0; width: 100%; height: 50px; background-color: #16254C;">
+            <%-include('../templates/footer.ejs')%>
+        </footer>
+    </body>
+</html>
