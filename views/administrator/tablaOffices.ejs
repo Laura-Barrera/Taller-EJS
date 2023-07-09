@@ -1,0 +1,21 @@
+<% for(const assignments of data){ %>
+    <%if(assignments.asignacion.length !=0){%>
+    <tr>
+        <td><%=assignments.numero_consultorio%></td>
+        <td><%=assignments.piso%></td>
+        <% for(const v of assignments.asignacion){ %>
+            <td><%=v.documento_medico%></td>
+            <% for(const n of dataMedico){ %>
+                <%if(n.documento_identidad==v.documento_medico){%>
+                    <td><%=n.nombre%></td>
+                    <td><%=n.especialidad%></td>
+                    <%break%>
+                <%}%>
+            <%}%>
+            <td><%=v.fecha%></td>
+            <td><%=v.horario%></td>
+        <%}%>
+        
+    </tr>
+    <%}%>
+<%}%>

@@ -6,7 +6,7 @@
     <body style="background-color: rgba(76, 199, 230, 0.6);">
 
         <nav class="navbar navbar-light" style="background-color: white;">
-            <%-include('../templates/navMain.ejs')%>
+            <%-include('../templates/navMainOnLogin.ejs')%>
         </nav><br>
         
         <main><br>
@@ -21,7 +21,7 @@
                             <div class="col-6"></div>
                             <div class="col-6" style="text-align: right;">
                                 <label>Filtrar Datos</label>&nbsp;
-                                <input type="text" id="searchInput" placeholder="Buscar..." style="border-radius: 5px;">
+                                <input type="text" id="filtro" placeholder="Buscar..." onkeyup="filtrarTabla()" style="border-radius: 5px;">
                             </div>
                         </div><br>
                         <table class="table table-bordered">
@@ -35,6 +35,15 @@
                                 </tr>
                             </thead>
                             <tbody id="tableBody">
+                                <% for(const doctor of data){%>
+                                    <tr>
+                                    <td><%=doctor.documento_identidad%></td>
+                                    <td><%=doctor.registro_medico%></td>
+                                    <td><%=doctor.nombre%></td>
+                                    <td><%=doctor.especialidad%></td>
+                                    <td class="text-center"><button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalUpdate">Editar</button></td>
+                                </tr>
+                                <%}%>
                             </tbody>
                         </table>
                     </div>
@@ -42,10 +51,10 @@
                 <div class="row">
                     <div class="col-4"></div>
                     <div class="col-2" style="text-align: right;">
-                        <button class="btn btn primary" style="background-color: #4C75E6; color: white;"  data-toggle="modal" data-target="#modalAdd">Agregar Médico</button>
+                        <button class="btn btn primary" style="background-color: #4C75E6; color: white;"  data-bs-toggle="modal" id="addUser" data-bs-target="#modalAdd">Agregar Médico</button>
                     </div>
                     <div class="col-2" style="text-align: right;">
-                        <button class="btn btn primary" style="background-color: #4C75E6; color: white;"  data-toggle="modal" data-target="#modalDelete">Eliminar Médico</button>
+                        <button class="btn btn primary" style="background-color: #4C75E6; color: white;"  data-bs-toggle="modal" data-bs-target="#modalDelete">Eliminar Médico</button>
                     </div>
                 </div><br>
             </div>
@@ -53,7 +62,43 @@
             <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAddLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <!-- Contenido del modal Agregar Médico -->
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar nuevo médico</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <form action="/createDoctor" method="POST">
+                          <div class="modal-body">
+                            <div class="form-group">
+                                <label for="documentoIdentidad">Documento de Identidad:</label>
+                                <input type="text" class="form-control" id="documentoIdentidad" name="documentoIdentidad" pattern="[0-9]+" inputmode="numeric"  required>
+                                <small class="form-text text-muted">Ingresa solo números.</small>
+                              </div>
+                              <div class="form-group">
+                                <label for="nombre">Nombre:</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                              </div>
+                              <div class="form-group">
+                                <label for="registroMedico">Registro Médico:</label>
+                                <input type="text" class="form-control" id="registroMedico" name="registroMedico" required>
+                              </div>
+                              <div class="form-group">
+                                <label for="especialidad">Especialidad:</label>
+                                <input type="text" class="form-control" id="especialidad" name="especialidad" required>
+                              </div>
+                              <div class="form-group">
+                                <label for="usuario">Usuario:</label>
+                                <input type="text" class="form-control" id="usuario" name="usuario" required>
+                              </div>
+                              <div class="form-group">
+                                <label for="contrasena">Contraseña:</label>
+                                <input type="password" class="form-control" id="contrasena" name="contrasena" required>
+                              </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Crear</button>
+                          </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -62,23 +107,96 @@
             <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <!-- Contenido del modal Eliminar Médico -->
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar médico</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <form action="/deleteDoctor" method="POST">
+                          <div class="modal-body">
+                            <div class="form-group">
+                                <h3>Ingrese el documento del medico para eliminarlo del sistema</h3>
+                                <label for="documentoIdentidad">Documento de Identidad:</label>
+                                <input type="text" class="form-control" id="documentoIdentidad" name="documentoIdentidad" pattern="[0-9]+" inputmode="numeric"  required>
+                                <small class="form-text text-muted">Ingresa solo números.</small>
+                              </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Eliminar</button>
+                          </div>
+                        </form>
                     </div>
                 </div>
             </div>
+            <!--Modal editar Médico-->
+            <div class="modal fade" id="modalUpdate" tabindex="-1" role="dialog" aria-labelledby="modalAddLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Editar médico</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <form action="/updateDoctor" method="POST">
+                          <div class="modal-body">
+                            <div class="form-group">
+                                <label for="documentoIdentidad">Documento de Identidad:</label>
+                                <input type="text" class="form-control" id="documentoIdentidad" name="documentoIdentidad" pattern="[0-9]+" inputmode="numeric"  required>
+                                <small class="form-text text-muted">Ingresa solo números.</small>
+                              </div>
+                              <div class="form-group">
+                                <label for="nombre">Nombre:</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                              </div>
+                              <div class="form-group">
+                                <label for="registroMedico">Registro Médico:</label>
+                                <input type="text" class="form-control" id="registroMedico" name="registroMedico" required>
+                              </div>
+                              <div class="form-group">
+                                <label for="especialidad">Especialidad:</label>
+                                <input type="text" class="form-control" id="especialidad" name="especialidad" required>
+                              </div>
+                              <div class="form-group">
+                                <label for="usuario">Usuario:</label>
+                                <input type="text" class="form-control" id="usuario" name="usuario" required>
+                              </div>
+                              <div class="form-group">
+                                <label for="contrasena">Contraseña:</label>
+                                <input type="password" class="form-control" id="contrasena" name="contrasena" required>
+                              </div>
+                          </div>
 
-            <!-- Scripts para activar los modales -->
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Editar</button>
+                        
+                          </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <%if( msg !=''){%>
             <script>
-                $(document).ready(function() {
-                    $('#modalAdd').on('shown.bs.modal', function() {
-                        // Acciones cuando se muestra el modal Agregar Médico
-                    });
-  
-                    $('#modalDelete').on('shown.bs.modal', function() {
-                        // Acciones cuando se muestra el modal Eliminar Médico
-                    });
-                });
+                Swal.fire('<%=msg%>')
             </script>
+            <%}%>
+
+              <script>
+                function filtrarTabla() {
+                  const filtro = document.getElementById('filtro').value||"";
+                  
+                  // Realiza una solicitud AJAX para actualizar la tabla en tiempo real
+                  fetch(`/managementDoctor?filtro=${filtro}`)
+                    .then(response => response.text())
+                    .then(html => {
+                      document.getElementById('tableBody').innerHTML = html;
+                      const filtro2 = document.getElementById('filtro');
+                    })
+                    .catch(error => {
+                      console.error('Error al filtrar la tabla:', error);
+                    });
+                }
+
+              </script>
         </main>
         <footer class="footer" style="position: relative; bottom:0; left: 0; width: 100%; height: 50px; background-color: #16254C;">
             <%-include('../templates/footer.ejs')%>

@@ -12,7 +12,7 @@
         <main><br>
             <div class="container" style="background-color: white; width: 50%; border:10px solid transparent">
                 <h3 style="text-align: center;">Inicio de Sesión</h3><br>
-                <form class="form-group" method="post">
+                <form class="form-group" action="/login" method="post">
                     <div class="mb-3">
                         <label for="user" class="form-label" style="font-size: 20px;">Usuario</label>
                         <input type="text" class="form-control" id="user" name="user">
@@ -22,15 +22,12 @@
                         <input type="password" class="form-control" id="password" name="password">
                     </div><br>
                     <div class="row">
-                        <div class="col-4" style="text-align: center;">
-                            <a href="/register" style="font-size: 18px;">Registrate aquí</a>
-                        </div>
                         <div class="col-4" style="text-align: center;">        
                             <a href="/key" style="font-size: 18px;">Recordar contraseña</a>
                         </div>
                         <div class="col-4" style="text-align: right;">
                             <button type="submit" class="btn btn-primary" style="background-color: #48DBD2; border-color: #48DBD2; color: black; font-size: 20px;">
-                                Enviar
+                                Ingresar
                             </button>
                         </div>
                     </div><br>
