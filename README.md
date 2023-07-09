@@ -1,3 +1,7 @@
+# Desarrolladores
+- Laura Melissa Barrera Pinto - 201910281
+- Cristian Camilo Suancha Alvarez - 201910808
+
 # Sistema de Asignación de Consultorios Médicos
 
 Este proyecto es un sistema desarrollado con Express, EJS y Nodemon para gestionar médicos y asignar y ver consultorios médicos en la institución de salud Nueva EPS.
