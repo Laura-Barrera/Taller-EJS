@@ -20,9 +20,8 @@ router.post('/login',(req,res)=>{
         }
     }
 })
-router.get('/key',(req,res)=> res.render('recoverKey',{'title':'Recuperar SI Nueva EPS'}))
-router.get('/register',(req,res)=> res.render('register',{'title':'Registro SI Nueva EPS'}))
 
+router.get('/key',(req,res)=>  res.render('recoverKey',{'title':'Recuperar SI Nueva EPS'}))
 
 router.get('/admMain',(req,res)=> res.render('./administrator/main.ejs',{'title':'Administrador SI Nueva EPS', 'currentPage': 'admMain'}))
 router.get('/managementDoctor',(req,res)=> {
@@ -56,6 +55,7 @@ router.post('/createDoctor',(req,res)=>{
 router.post('/deleteDoctor',(req,res)=>{
     const {documentoIdentidad}=req.body
     const answer=deleteDoctor(documentoIdentidad)
+
     if(answer){
         res.render('./administrator/medicalManagement.ejs',{'title':'Administrador SI Nueva EPS','currentPage': 'managementDoctor','data':getDoctors(),'msg':'Eliminado exitosamente', "especialidades": especialidades})
     }else{
@@ -118,7 +118,7 @@ router.post('/assignOffice',(req,res)=>{
     if (response==true){
         res.render('./administrator/makeAssignment.ejs',{'title':'Administrador SI Nueva EPS','currentPage': 'assigment','data':getOffices(),'dataMedico':getDoctors(),'msg':'Asignado satisfactoriamente','consultorios':getOffices()})
     }else if(response==false){
-        res.render('./administrator/makeAssignment.ejs',{'title':'Administrador SI Nueva EPS','currentPage': 'assigment','data':getOffices(),'dataMedico':getDoctors(),'msg':'Error al asignar, consultorio ocupado','consultorios':getOffices()})
+        res.render('./administrator/makeAssignment.ejs',{'title':'Administrador SI Nueva EPS','currentPage': 'assigment','data':getOffices(),'dataMedico':getDoctors(),'msg':'Error al asignar, consultorio ocupado o médico ya asignado','consultorios':getOffices()})
     }else{
         res.render('./administrator/makeAssignment.ejs',{'title':'Administrador SI Nueva EPS','currentPage': 'assigment','data':getOffices(),'dataMedico':getDoctors(),'msg':response,'consultorios':getOffices()})
     }

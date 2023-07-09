@@ -1,154 +1,189 @@
 {
-    "consultorios": [
+  "consultorios": [
+    {
+      "numero_consultorio": "101",
+      "piso": 1,
+      "asignacion": [
         {
-            "numero_consultorio": "101",
-            "piso": 1,
-            "asignacion": []
-        },
-        {
-            "numero_consultorio": "102",
-            "piso": 1,
-            "asignacion": [{"documento_medico":"9876543218","fecha":"08-07-2023","horario":"13-20"},{"documento_medico":"9876543218","fecha":"08-07-2023","horario":"8-13"}]
-        },
-        {
-            "numero_consultorio": "103",
-            "piso": 1,
-            "asignacion": []
-        },
-        {
-            "numero_consultorio": "104",
-            "piso": 1,
-            "asignacion": []
-        },
-        {
-            "numero_consultorio": "105",
-            "piso": 1,
-            "asignacion": []
-        },
-        {
-            "numero_consultorio": "201",
-            "piso": 2,
-            "asignacion": []
-        },
-        {
-            "numero_consultorio": "202",
-            "piso": 2,
-            "asignacion": [{"documento_medico":"9876543218","fecha":"09-07-2023","horario":"13-20"}]
-        },
-        {
-            "numero_consultorio": "203",
-            "piso": 2,
-            "asignacion": []
-        },
-        {
-            "numero_consultorio": "204",
-            "piso": 2,
-            "asignacion": []
-        },
-        {
-            "numero_consultorio": "205",
-            "piso": 2,
-            "asignacion": []
-        },
-        {
-            "numero_consultorio": "301",
-            "piso": 3,
-            "asignacion": []
-        },
-        {
-            "numero_consultorio": "302",
-            "piso": 3,
-            "asignacion": []
-        },
-        {
-            "numero_consultorio": "303",
-            "piso": 3,
-            "asignacion": []
-        },
-        {
-            "numero_consultorio": "304",
-            "piso": 3,
-            "asignacion": []
-        },
-        {
-            "numero_consultorio": "305",
-            "piso": 3,
-            "asignacion": []
-        },
-        {
-            "numero_consultorio": "401",
-            "piso": 4,
-            "asignacion": [{"documento_medico":"9876543218","fecha":"15-07-2023","horario":"8-13"}]
-        },
-        {
-            "numero_consultorio": "402",
-            "piso": 4,
-            "asignacion": []
-        },
-        {
-            "numero_consultorio": "403",
-            "piso": 4,
-            "asignacion": []
-        },
-        {
-            "numero_consultorio": "404",
-            "piso": 4,
-            "asignacion": []
-        },
-        {
-            "numero_consultorio": "405",
-            "piso": 4,
-            "asignacion": [{"documento_medico":"9876543218","fecha":"08-13-2023","horario":"13-20"}]
-        },
-        {
-            "numero_consultorio": "501",
-            "piso": 5,
-            "asignacion": []
-        },
-        {
-            "numero_consultorio": "502",
-            "piso": 5,
-            "asignacion": []
-        },
-        {
-            "numero_consultorio": "503",
-            "piso": 5,
-            "asignacion": []
-        },
-        {
-            "numero_consultorio": "504",
-            "piso": 5,
-            "asignacion": []
-        },
-        {
-            "numero_consultorio": "505",
-            "piso": 5,
-            "asignacion": []
-        },
-        {
-            "numero_consultorio": "601",
-            "piso": 6,
-            "asignacion": []
-        },
-        {
-            "numero_consultorio": "602",
-            "piso": 6,
-            "asignacion": []
-        },
-        {
-            "numero_consultorio": "603",
-            "piso": 6,
-            "asignacion": []
-        },
-        {
-            "numero_consultorio": "604",
-            "piso": 6,
-            "asignacion": []
-        },
-        {
-            "numero_consultorio": "605",
-            "piso": 6,
-            "asignacion": []
+          "documento_medico": "1002760219",
+          "fecha": "26-07-2023",
+          "horario": "8-13"
         }
-    ]
+      ]
+    },
+    {
+      "numero_consultorio": "102",
+      "piso": 1,
+      "asignacion": [
+        {
+          "documento_medico": "9876543218",
+          "fecha": "08-07-2023",
+          "horario": "13-20"
+        },
+        {
+          "documento_medico": "9876543218",
+          "fecha": "08-07-2023",
+          "horario": "8-13"
+        }
+      ]
+    },
+    {
+      "numero_consultorio": "103",
+      "piso": 1,
+      "asignacion": []
+    },
+    {
+      "numero_consultorio": "104",
+      "piso": 1,
+      "asignacion": []
+    },
+    {
+      "numero_consultorio": "105",
+      "piso": 1,
+      "asignacion": []
+    },
+    {
+      "numero_consultorio": "201",
+      "piso": 2,
+      "asignacion": []
+    },
+    {
+      "numero_consultorio": "202",
+      "piso": 2,
+      "asignacion": [
+        {
+          "documento_medico": "9876543218",
+          "fecha": "09-07-2023",
+          "horario": "13-20"
+        }
+      ]
+    },
+    {
+      "numero_consultorio": "203",
+      "piso": 2,
+      "asignacion": []
+    },
+    {
+      "numero_consultorio": "204",
+      "piso": 2,
+      "asignacion": []
+    },
+    {
+      "numero_consultorio": "205",
+      "piso": 2,
+      "asignacion": []
+    },
+    {
+      "numero_consultorio": "301",
+      "piso": 3,
+      "asignacion": []
+    },
+    {
+      "numero_consultorio": "302",
+      "piso": 3,
+      "asignacion": []
+    },
+    {
+      "numero_consultorio": "303",
+      "piso": 3,
+      "asignacion": []
+    },
+    {
+      "numero_consultorio": "304",
+      "piso": 3,
+      "asignacion": []
+    },
+    {
+      "numero_consultorio": "305",
+      "piso": 3,
+      "asignacion": []
+    },
+    {
+      "numero_consultorio": "401",
+      "piso": 4,
+      "asignacion": [
+        {
+          "documento_medico": "9876543218",
+          "fecha": "15-07-2023",
+          "horario": "8-13"
+        }
+      ]
+    },
+    {
+      "numero_consultorio": "402",
+      "piso": 4,
+      "asignacion": []
+    },
+    {
+      "numero_consultorio": "403",
+      "piso": 4,
+      "asignacion": []
+    },
+    {
+      "numero_consultorio": "404",
+      "piso": 4,
+      "asignacion": []
+    },
+    {
+      "numero_consultorio": "405",
+      "piso": 4,
+      "asignacion": [
+        {
+          "documento_medico": "9876543218",
+          "fecha": "08-13-2023",
+          "horario": "13-20"
+        }
+      ]
+    },
+    {
+      "numero_consultorio": "501",
+      "piso": 5,
+      "asignacion": []
+    },
+    {
+      "numero_consultorio": "502",
+      "piso": 5,
+      "asignacion": []
+    },
+    {
+      "numero_consultorio": "503",
+      "piso": 5,
+      "asignacion": []
+    },
+    {
+      "numero_consultorio": "504",
+      "piso": 5,
+      "asignacion": []
+    },
+    {
+      "numero_consultorio": "505",
+      "piso": 5,
+      "asignacion": []
+    },
+    {
+      "numero_consultorio": "601",
+      "piso": 6,
+      "asignacion": []
+    },
+    {
+      "numero_consultorio": "602",
+      "piso": 6,
+      "asignacion": []
+    },
+    {
+      "numero_consultorio": "603",
+      "piso": 6,
+      "asignacion": []
+    },
+    {
+      "numero_consultorio": "604",
+      "piso": 6,
+      "asignacion": []
+    },
+    {
+      "numero_consultorio": "605",
+      "piso": 6,
+      "asignacion": []
+    }
+  ]
 }
