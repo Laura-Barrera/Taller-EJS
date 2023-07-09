@@ -2,7 +2,7 @@ const express = require('express')
 const {assignOffice, loginDoctor, getCurrentUser}=require('./../resources/management')
 const {getDoctors,addDoctor, deleteDoctor, updateDoctor, findDoctor} = require('./../resources/doctors')
 const { getOffices } = require('../resources/offices')
-
+const {especialidades} = require('../resources/especialidades')
 
 const router = express.Router()
 
@@ -29,44 +29,46 @@ router.get('/managementDoctor',(req,res)=> {
     const filtro = req.query.filtro;
 
     let data = getDoctors();
-    if(filtro || filtro===""){
+    if (filtro || filtro === "") {
         data = getDoctors().filter(dato => {
-       
             const valorFiltro = filtro?.toLocaleLowerCase();
-            return dato.nombre.toLowerCase().includes(valorFiltro)||dato.especialidad.toLowerCase().includes(valorFiltro)
-            ||dato.documento_identidad.toLowerCase().includes(valorFiltro)||dato.registro_medico.toLowerCase().includes(valorFiltro);
-          });
-          res.render('./administrator/tablaDoctors',{'title':'Administrador SI Nueva EPS','currentPage': 'managementDoctor','data':data,'msg':''})
-    }else{
-        res.render('./administrator/medicalManagement.ejs',{'title':'Administrador SI Nueva EPS','currentPage': 'managementDoctor','data':data,'msg':''})
+            return dato.nombre.toLowerCase().includes(valorFiltro) ||
+                dato.especialidad.toLowerCase().includes(valorFiltro) ||
+                dato.documento_identidad.toLowerCase().includes(valorFiltro) ||
+                dato.registro_medico.toLowerCase().includes(valorFiltro);
+        });
+        res.render('./administrator/tablaDoctors', { 'title': 'Administrador SI Nueva EPS', 'currentPage': 'managementDoctor', 'data': data, 'msg': '' })
+    } else {
+        res.render('./administrator/medicalManagement.ejs', { 'title': 'Administrador SI Nueva EPS', 'currentPage': 'managementDoctor', 'data': data, 'msg': '', "especialidades": especialidades})
     }
+    
     
 })
 router.post('/createDoctor',(req,res)=>{
     const {documentoIdentidad,nombre, registroMedico,especialidad,usuario,contrasena}=req.body
     const answer=addDoctor(documentoIdentidad,nombre,especialidad,registroMedico,usuario,contrasena)
     if(answer){
-        res.render('./administrator/medicalManagement.ejs',{'title':'Administrador SI Nueva EPS','currentPage': 'managementDoctor','data':getDoctors(),'msg':'Creado exitosamente'})
+        res.render('./administrator/medicalManagement.ejs',{'title':'Administrador SI Nueva EPS','currentPage': 'managementDoctor','data':getDoctors(),'msg':'Creado exitosamente', "especialidades": especialidades})
     }else{
-        res.render('./administrator/medicalManagement.ejs',{'title':'Administrador SI Nueva EPS','currentPage': 'managementDoctor','data':getDoctors(),'msg':'Un medico con la misma identificación ya existe'})
+        res.render('./administrator/medicalManagement.ejs',{'title':'Administrador SI Nueva EPS','currentPage': 'managementDoctor','data':getDoctors(),'msg':'Un medico con la misma identificación ya existe', "especialidades": especialidades})
     }
 })
 router.post('/deleteDoctor',(req,res)=>{
     const {documentoIdentidad}=req.body
     const answer=deleteDoctor(documentoIdentidad)
     if(answer){
-        res.render('./administrator/medicalManagement.ejs',{'title':'Administrador SI Nueva EPS','currentPage': 'managementDoctor','data':getDoctors(),'msg':'Eliminado exitosamente'})
+        res.render('./administrator/medicalManagement.ejs',{'title':'Administrador SI Nueva EPS','currentPage': 'managementDoctor','data':getDoctors(),'msg':'Eliminado exitosamente', "especialidades": especialidades})
     }else{
-        res.render('./administrator/medicalManagement.ejs',{'title':'Administrador SI Nueva EPS','currentPage': 'managementDoctor','data':getDoctors(),'msg':'Médico no encontrado'})
+        res.render('./administrator/medicalManagement.ejs',{'title':'Administrador SI Nueva EPS','currentPage': 'managementDoctor','data':getDoctors(),'msg':'Médico no encontrado', "especialidades": especialidades})
     }
 })
 router.post('/updateDoctor',(req,res)=>{
     const {documentoIdentidad,nombre, registroMedico,especialidad,usuario,contrasena}=req.body
     const answer=updateDoctor(documentoIdentidad,nombre,especialidad,registroMedico,usuario,contrasena)
     if(answer){
-        res.render('./administrator/medicalManagement.ejs',{'title':'Administrador SI Nueva EPS','currentPage': 'managementDoctor','data':getDoctors(),'msg':'Actualizado exitosamente'})
+        res.render('./administrator/medicalManagement.ejs',{'title':'Administrador SI Nueva EPS','currentPage': 'managementDoctor','data':getDoctors(),'msg':'Actualizado exitosamente', "especialidades": especialidades})
     }else{
-        res.render('./administrator/medicalManagement.ejs',{'title':'Administrador SI Nueva EPS','currentPage': 'managementDoctor','data':getDoctors(),'msg':'Error al actualizar el médico, no encontrado'})
+        res.render('./administrator/medicalManagement.ejs',{'title':'Administrador SI Nueva EPS','currentPage': 'managementDoctor','data':getDoctors(),'msg':'Error al actualizar el médico, no encontrado', "especialidades": especialidades})
     }
 })
 
@@ -86,7 +88,7 @@ router.get('/assigment',(req,res)=> {
           });
           res.render('./administrator/tablaOffices',{'title':'Administrador SI Nueva EPS','currentPage': 'assigment','data':dataOffices,'dataMedico':getDoctors(),'msg':''})
     }else{
-        res.render('./administrator/makeAssignment.ejs',{'title':'Administrador SI Nueva EPS','currentPage': 'assigment','data':dataOffices,'dataMedico':getDoctors(),'msg':''})
+        res.render('./administrator/makeAssignment.ejs',{'title':'Administrador SI Nueva EPS','currentPage': 'assigment','data':dataOffices,'dataMedico':getDoctors(),'msg':'','consultorios':getOffices()})
     }
 
 })
@@ -114,11 +116,11 @@ router.post('/assignOffice',(req,res)=>{
 
     const response = assignOffice(numeroConsultorio,documentoMedico,fechaFormat[2]+"-"+fechaFormat[1]+"-"+fechaFormat[0],turno)
     if (response==true){
-        res.render('./administrator/makeAssignment.ejs',{'title':'Administrador SI Nueva EPS','currentPage': 'assigment','data':getOffices(),'dataMedico':getDoctors(),'msg':'Asignado satisfactoriamente'})
+        res.render('./administrator/makeAssignment.ejs',{'title':'Administrador SI Nueva EPS','currentPage': 'assigment','data':getOffices(),'dataMedico':getDoctors(),'msg':'Asignado satisfactoriamente','consultorios':getOffices()})
     }else if(response==false){
-        res.render('./administrator/makeAssignment.ejs',{'title':'Administrador SI Nueva EPS','currentPage': 'assigment','data':getOffices(),'dataMedico':getDoctors(),'msg':'Error al asignar, consultorio ocupado'})
+        res.render('./administrator/makeAssignment.ejs',{'title':'Administrador SI Nueva EPS','currentPage': 'assigment','data':getOffices(),'dataMedico':getDoctors(),'msg':'Error al asignar, consultorio ocupado','consultorios':getOffices()})
     }else{
-        res.render('./administrator/makeAssignment.ejs',{'title':'Administrador SI Nueva EPS','currentPage': 'assigment','data':getOffices(),'dataMedico':getDoctors(),'msg':response})
+        res.render('./administrator/makeAssignment.ejs',{'title':'Administrador SI Nueva EPS','currentPage': 'assigment','data':getOffices(),'dataMedico':getDoctors(),'msg':response,'consultorios':getOffices()})
     }
 })
 

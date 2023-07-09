@@ -15,37 +15,41 @@
                     <%-include('../templates/navAdm.ejs', { currentPage: currentPage })%>
                 </nav><br>
                 <h3 style="text-align: center;">Información Personal Médico</h3>
-                <div class="row">
-                    <div class="table-responsive">
-                        <div class="row" style="text-align: right;">
-                            <div class="col-6"></div>
-                            <div class="col-6" style="text-align: right;">
-                                <label>Filtrar Datos</label>&nbsp;
-                                <input type="text" id="filtro" placeholder="Buscar..." onkeyup="filtrarTabla()" style="border-radius: 5px;">
-                            </div>
-                        </div><br>
-                        <table class="table table-bordered">
+                <div class="container">
+                  <div class="table-responsive">
+                      <div class="table-responsive" id="mydatatable-container">
+                          <table id="tablaMedicos" class="table table-striped table-bordered ">
                             <thead>
-                                <tr>
-                                    <th>N° Documento</th>
-                                    <th>N° Tarjeta Profesional</th>
-                                    <th>Nombre</th>
-                                    <th>Especialidad</th>
-                                    <th>Editar datos</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tableBody">
-                                <% for(const doctor of data){%>
-                                    <tr>
-                                    <td><%=doctor.documento_identidad%></td>
-                                    <td><%=doctor.registro_medico%></td>
-                                    <td><%=doctor.nombre%></td>
-                                    <td><%=doctor.especialidad%></td>
-                                    <td class="text-center"><button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalUpdate">Editar</button></td>
-                                </tr>
-                                <%}%>
-                            </tbody>
+                              <tr>
+                                  <th>N° Documento</th>
+                                  <th>N° Tarjeta Profesional</th>
+                                  <th>Nombre</th>
+                                  <th>Especialidad</th>
+                                  <th>Editar datos</th>
+                              </tr>
+                          </thead>
+                          <tbody id="tableBody">
+                            <% for(const doctor of data){%>
+                              <tr>
+                                <td><%=doctor.documento_identidad%></td>
+                                <td><%=doctor.registro_medico%></td>
+                                <td><%=doctor.nombre%></td>
+                                <td><%=doctor.especialidad%></td>
+                                <td class="text-center"><button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalUpdate">Editar</button></td>
+                              </tr>
+                            <%}%>
+                          </tbody>
+                          <tfoot class="text-center" style="background: #d78aea; color: black">
+                            <tr>
+                              <th>N° Documento</th>
+                              <th>N° Tarjeta Profesional</th>
+                              <th>Nombre</th>
+                              <th>Especialidad</th>
+                              <th>Editar datos</th>
+                            </tr>
+                          </tfoot>
                         </table>
+                      </div>
                     </div>
                 </div><br>
                 <div class="row">
@@ -57,9 +61,9 @@
                         <button class="btn btn primary" style="background-color: #4C75E6; color: white;"  data-bs-toggle="modal" data-bs-target="#modalDelete">Eliminar Médico</button>
                     </div>
                 </div><br>
-            </div>
-            <!-- Modal Agregar Médico -->
-            <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAddLabel" aria-hidden="true">
+              </div>
+              <!-- Modal Agregar Médico -->
+              <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAddLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -70,7 +74,7 @@
                           <div class="modal-body">
                             <div class="form-group">
                                 <label for="documentoIdentidad">Documento de Identidad:</label>
-                                <input type="text" class="form-control" id="documentoIdentidad" name="documentoIdentidad" pattern="[0-9]+" inputmode="numeric"  required>
+                                <input type="number" class="form-control" id="documentoIdentidad" name="documentoIdentidad" pattern="[0-9]+" inputmode="numeric"  required>
                                 <small class="form-text text-muted">Ingresa solo números.</small>
                               </div>
                               <div class="form-group">
@@ -78,12 +82,16 @@
                                 <input type="text" class="form-control" id="nombre" name="nombre" required>
                               </div>
                               <div class="form-group">
-                                <label for="registroMedico">Registro Médico:</label>
+                                <label for="registroMedico">N° Tarjeta Profesional:</label>
                                 <input type="text" class="form-control" id="registroMedico" name="registroMedico" required>
                               </div>
                               <div class="form-group">
                                 <label for="especialidad">Especialidad:</label>
-                                <input type="text" class="form-control" id="especialidad" name="especialidad" required>
+                                <select type="text" class="form-control" id="especialidad" name="especialidad" required>
+                                  <% for(const especialidad of especialidades) { %>
+                                      <option><%= especialidad %></option>
+                                  <% } %>
+                                </select>                              
                               </div>
                               <div class="form-group">
                                 <label for="usuario">Usuario:</label>
@@ -101,10 +109,10 @@
                         </form>
                     </div>
                 </div>
-            </div>
+              </div>
   
-            <!-- Modal Eliminar Médico -->
-            <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel" aria-hidden="true">
+              <!-- Modal Eliminar Médico -->
+              <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -116,7 +124,7 @@
                             <div class="form-group">
                                 <h3>Ingrese el documento del medico para eliminarlo del sistema</h3>
                                 <label for="documentoIdentidad">Documento de Identidad:</label>
-                                <input type="text" class="form-control" id="documentoIdentidad" name="documentoIdentidad" pattern="[0-9]+" inputmode="numeric"  required>
+                                <input type="number" class="form-control" id="documentoIdentidad" name="documentoIdentidad" pattern="[0-9]+" inputmode="numeric"  required>
                                 <small class="form-text text-muted">Ingresa solo números.</small>
                               </div>
                           </div>
@@ -127,9 +135,9 @@
                         </form>
                     </div>
                 </div>
-            </div>
-            <!--Modal editar Médico-->
-            <div class="modal fade" id="modalUpdate" tabindex="-1" role="dialog" aria-labelledby="modalAddLabel" aria-hidden="true">
+              </div>
+              <!--Modal editar Médico-->
+              <div class="modal fade" id="modalUpdate" tabindex="-1" role="dialog" aria-labelledby="modalAddLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -140,7 +148,7 @@
                           <div class="modal-body">
                             <div class="form-group">
                                 <label for="documentoIdentidad">Documento de Identidad:</label>
-                                <input type="text" class="form-control" id="documentoIdentidad" name="documentoIdentidad" pattern="[0-9]+" inputmode="numeric"  required>
+                                <input type="number" class="form-control" id="documentoIdentidad" name="documentoIdentidad" pattern="[0-9]+" inputmode="numeric"  required>
                                 <small class="form-text text-muted">Ingresa solo números.</small>
                               </div>
                               <div class="form-group">
@@ -153,7 +161,11 @@
                               </div>
                               <div class="form-group">
                                 <label for="especialidad">Especialidad:</label>
-                                <input type="text" class="form-control" id="especialidad" name="especialidad" required>
+                                <select type="text" class="form-control" id="especialidad" name="especialidad" required>
+                                  <% for(const especialidad of especialidades) { %>
+                                      <option><%= especialidad %></option>
+                                  <% } %>
+                                </select>                              
                               </div>
                               <div class="form-group">
                                 <label for="usuario">Usuario:</label>
@@ -173,31 +185,40 @@
                         </form>
                     </div>
                 </div>
-            </div>
-            <%if( msg !=''){%>
-            <script>
-                Swal.fire('<%=msg%>')
-            </script>
-            <%}%>
-
+              </div>
+              <%if( msg !=''){%>
               <script>
-                function filtrarTabla() {
-                  const filtro = document.getElementById('filtro').value||"";
-                  
-                  // Realiza una solicitud AJAX para actualizar la tabla en tiempo real
-                  fetch(`/managementDoctor?filtro=${filtro}`)
-                    .then(response => response.text())
-                    .then(html => {
-                      document.getElementById('tableBody').innerHTML = html;
-                      const filtro2 = document.getElementById('filtro');
-                    })
-                    .catch(error => {
-                      console.error('Error al filtrar la tabla:', error);
-                    });
-                }
-
+                Swal.fire('<%=msg%>')
               </script>
+              <%}%>
         </main>
+        <!-- Scripts -->
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <link rel="stylesheet" href= "https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+
+        <script src="https://code.jquery.com/jquery-3.5.1.js"> </script>
+        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"> </script>
+        <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"> </script>
+
+        <script>
+          window.addEventListener("pageshow", function (event) {
+          let historyTraversal = event.persisted ||
+            (typeof window.performance != "undefined" &&
+            window.performance.navigation.type === 2);
+            if (historyTraversal) {
+              window.location.reload();
+            }
+          });
+        </script>                
+
+        <script>
+          $(document).ready(function () {
+            $('#tablaMedicos').DataTable();
+          });
+        </script>
+
         <footer class="footer" style="position: relative; bottom:0; left: 0; width: 100%; height: 50px; background-color: #16254C;">
             <%-include('../templates/footer.ejs')%>
         </footer>
